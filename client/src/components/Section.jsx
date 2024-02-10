@@ -9,6 +9,7 @@ export default function Section() {
     setFormData({ ...formData, [e.target.id]: String(e.target.value.trim()) }); //.id represent a input box, .value is the user input
     console.log(formData);
   };
+  
 
   return (
     <div className="min-h-screen mt-20">
@@ -29,36 +30,39 @@ export default function Section() {
         {/* input side */}
         <div className="flex-1">
           {/* <form className="flex flex-col gap-4" onSubmit={handleSubmit}> */}
-            <div className="mb-5">
-              <Label value="Write me a JavaScript regular expressions that..." />
-              <TextInput
-                type="text"
-                placeholder='Enter a prompt -e.g "remove all words with a vowel"'
-                id="prompt"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-5">
-              <Label value="Enter a string:" />
-              <TextInput
-                type="text"
-                placeholder="text..."
-                id="input text"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex justify-center">
-              <Button className='w-80 bg-gradient-to-r from-emerald-500 to to-black' type='submit'>
-                {/* {loading ? (
+          <div className="mb-5">
+            <Label value="Write me a JavaScript regular expressions that..." />
+            <TextInput
+              type="text"
+              placeholder='Enter a prompt -e.g "remove all words with a vowel"'
+              id="prompt"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-5">
+            <Label value="Enter a string:" />
+            <TextInput
+              type="text"
+              placeholder="text..."
+              id="input text"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex justify-center">
+            <Button
+              className="w-80 bg-gradient-to-r from-emerald-500 to to-black"
+              type="submit"
+            >
+              {/* {loading ? (
                     <>
                       <Spinner size='sm' />
                       <span className='pl-3'> Loading... </span>
                     </> 
                     ) : ( */}
-                      Generate
-                    {/* )} */}
-              </Button>
-            </div>
+              Generate
+              {/* )} */}
+            </Button>
+          </div>
           {/* </form> */}
           <div className="flex gap-2 text-sm mt-5">
             <span>Generated Regex:</span>
