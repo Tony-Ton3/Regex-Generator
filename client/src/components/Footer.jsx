@@ -1,7 +1,7 @@
 import { Footer } from "flowbite-react";
 
 import {
-  BsFacebook,
+  BsLinkedin,
   BsInstagram,
   BsTwitter,
   BsGithub,
@@ -21,38 +21,23 @@ export default function FooterCom() {
           </div>
           <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
-              <Footer.Title title="About" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
-                  Test
-                </Footer.Link>
-                <Footer.Link
-                  href="/about"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Regex-Generator
-                </Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Follow us" />
+              <Footer.Title title="Follow me" />
               <Footer.LinkGroup col>
                 <Footer.Link
                   href="https://www.github.com/Tony-Ton3"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Github
+                  GitHub
                 </Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
+                <Footer.Link href="#">LinkedIn</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title="Legal" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Privacy Policy</Footer.Link>
-                <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
+                <Footer.Link href="#">Privacy Policy (place holder)</Footer.Link>
+                <Footer.Link href="#">Terms &amp; Conditions (place holder)</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
@@ -65,11 +50,8 @@ export default function FooterCom() {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
+            <Footer.Icon href="https://www.linkedin.com/in/tony-ferriera/" icon={BsLinkedin} />
             <Footer.Icon href="https://github.com/Tony-Ton3" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsDribbble} />
           </div>
         </div>
       </div>

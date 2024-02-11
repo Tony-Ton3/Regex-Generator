@@ -31,16 +31,12 @@ export default function MainSection() {
 
     setLoading(true);
     setError(null);
-    console.log("submitting form triggered");
 
     try {
       const regex = await convertPromptToRegex(formData.prompt);
-      const transformedText = await applyRegexToInputText(
-        regex,
-        formData.input,
-      );
-      console.log(regex);
-      console.log(transformedText);
+      const transformedText = await applyRegexToInputText(regex, formData.input);
+      // console.log(regex);
+      // console.log(transformedText);
       setResults({ regex, transformedText });
     } catch (error) {
       setError("An error occurred. Please try again later.");
@@ -61,6 +57,7 @@ export default function MainSection() {
             </span>
             Generator
           </a>
+          {/* give fade in animation to display text */}
           <motion.div
             id="animated-text"
             className="text-sm mt-5 italic font-bold"
@@ -130,7 +127,7 @@ export default function MainSection() {
         <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
           <div className="flex-1">
             <MarkdownEditor
-              value={"#output goes here"}
+              value={results.transformedText}
               height="300px"
               hideToolbar="false"
               onChange={(value, viewUpdate) => {}}
