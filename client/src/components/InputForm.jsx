@@ -1,39 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Label, TextInput, Alert, Spinner } from "flowbite-react";
-import { convertPromptToRegex } from "../api/geminiApi";
+import { convertPromptToRegex, applyRegexToInputText } from "../api/geminiApi";
+// import errorHandler from "../utils/error.js";
 
 export default function InputForm() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [results, setResults] = useState({ regex: "", transformedText: "" });
 
-  const handleChange = (e) => { //handle user input and saves input to form
-    setFormData({ ...formData, [e.target.id]: String(e.target.value.trim()) }); //.id represent a input box, .value is the user input
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: String(e.target.value.trim()) });
     console.log(formData.prompt);
   };
 
-  const handleSubmit = async (e) => { //handle form submission
-    e.preventDefault(); //prevent page refresh on every form submission
-    
-    // if (!formData.prompt || !formData.input) {
-    //    setError("Please fill in all fields");
-    //    return;
-    // }
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.prompt || !formData.input) {
+      // errorHandler(400, "Please fill in all fields");
+      return;
+    }
+
     setLoading(true);
     setError(null);
-    console.log("submitting form triggered")
-    
+    console.log("submitting form triggered");
 
     try {
       const regex = await convertPromptToRegex(formData.prompt);
-      // const transformedText = await applyRegexToInputText(regex, formData.input);
+      const transformedText = await applyRegexToInputText(regex, formData.input);
       console.log(regex);
-      // setResults({ regex, transformedText });
+      console.log(transformedText);
+      setResults({ regex, transformedText });
     } catch (error) {
       setError("An error occurred. Please try again later.");
-    }  
-  }  
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen mt-20">
@@ -54,42 +58,42 @@ export default function InputForm() {
         {/* input side */}
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <div className="mb-5">
-            <Label value="Write me a JavaScript regular expressions that..." />
-            <TextInput
-              type="text"
-              placeholder='Enter a prompt -e.g "remove all words with a vowel"'
-              id="prompt"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-5">
-            <Label value="Enter a string:" />
-            <TextInput
-              type="text"
-              placeholder="text..."
-              id="input"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex justify-center">
-            <Button
-              className="w-80 bg-gradient-to-r from-emerald-500 to to-black"
-              type="submit"
-            >
-              {loading ? (
-                    <>
-                      <Spinner size='sm' />
-                      <span className='pl-3'> Loading... </span>
-                    </> 
-                    ) : (
-              'Generate'
-              )} 
-            </Button>
-          </div>
+            <div className="mb-5">
+              <Label value="Write me a JavaScript regular expressions that..." />
+              <TextInput
+                type="text"
+                placeholder='Enter a prompt -e.g "remove all words with a vowel"'
+                id="prompt"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-5">
+              <Label value="Enter a string:" />
+              <TextInput
+                type="text"
+                placeholder="text..."
+                id="input"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex justify-center">
+              <Button
+                className="w-80 bg-gradient-to-r from-emerald-500 to to-black"
+                type="submit"
+              >
+                {loading ? (
+                  <>
+                    <Spinner size="sm" />
+                    <span className="pl-3"> Converting... </span>
+                  </>
+                ) : (
+                  "Generate"
+                )}
+              </Button>
+            </div>
           </form>
           <div className="flex gap-2 text-sm mt-5">
-            <span>Generated Regex:</span>
+            <span>Generated Regex: {results.regex}</span>
           </div>
           {/* {errorMessage && (
             <Alert className="mt-5" color="failure">
