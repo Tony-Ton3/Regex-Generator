@@ -7,20 +7,25 @@ const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // Assuming Gem
 
 async function convertPromptToRegex(prompt) {
   try {
-    const curPrompt = "Convert the following prompt to a regular expression: " + prompt;
+    const curPrompt =
+      "Convert the following prompt to a regular expression: " + prompt;
     const result = await model.generateContent(curPrompt);
     const response = result.response;
     const regex = response.text();
     return regex;
   } catch (error) {
     console.error("Error converting prompt to regex:", error);
-    throw error; 
+    throw error;
   }
 }
 
 async function applyRegexToInputText(regex, inputText) {
-  try{
-    const curPrompt = "Apply the following regular expression to the following text: " + regex + " " + inputText;
+  try {
+    const curPrompt =
+      "Apply the following regular expression to the following text: " +
+      regex +
+      " " +
+      inputText;
     const result = await model.generateContent(curPrompt);
     const response = result.response;
     const convertedText = response.text();
@@ -32,4 +37,3 @@ async function applyRegexToInputText(regex, inputText) {
 }
 
 export { convertPromptToRegex, applyRegexToInputText };
-

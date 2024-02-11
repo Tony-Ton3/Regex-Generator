@@ -1,6 +1,9 @@
-export const errorHandler = (statusCode, message) => {
-  const error = new Error();
-  error.statusCode = statusCode;
-  error.message = message;
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+export const errorHandler = (message) => {
+  const error = () => {
+    toast.error(message);
+  };
+
   return error;
 };

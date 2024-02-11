@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Label, TextInput, Alert, Spinner } from "flowbite-react";
 import { convertPromptToRegex, applyRegexToInputText } from "../api/geminiApi";
-// import errorHandler from "../utils/error.js";
 
 export default function InputForm() {
   const [formData, setFormData] = useState({});
@@ -17,8 +16,14 @@ export default function InputForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.prompt || !formData.input) {
-      // errorHandler(400, "Please fill in all fields");
+    if (!formData.prompt && !formData.input) {
+      setError("Please enter a prompt and input text.");
+      return;
+    } else if (!formData.prompt) {
+      setError("Please enter a prompt.");
+      return;
+    } else if (!formData.input) {
+      setError("Please enter input text.");
       return;
     }
 
@@ -28,7 +33,10 @@ export default function InputForm() {
 
     try {
       const regex = await convertPromptToRegex(formData.prompt);
-      const transformedText = await applyRegexToInputText(regex, formData.input);
+      const transformedText = await applyRegexToInputText(
+        regex,
+        formData.input,
+      );
       console.log(regex);
       console.log(transformedText);
       setResults({ regex, transformedText });
@@ -40,7 +48,7 @@ export default function InputForm() {
   };
 
   return (
-    <div className="min-h-screen mt-20">
+    <div className="mt-20">
       <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
         {/* info side*/}
         <div className="flex-1">
@@ -53,12 +61,15 @@ export default function InputForm() {
           <p className="text-sm mt-5 italic font-bold">
             Use the power of AI to generate regex pattern
           </p>
+          <div className="flex gap-2 text-sm mt-5 ">
+            <span>Generated Regex: {results.regex}</span>
+          </div>
         </div>
 
         {/* input side */}
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div className="mb-5">
+            <div className="mb-3">
               <Label value="Write me a JavaScript regular expressions that..." />
               <TextInput
                 type="text"
@@ -67,7 +78,7 @@ export default function InputForm() {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-5">
+            <div className="mb-3">
               <Label value="Enter a string:" />
               <TextInput
                 type="text"
@@ -76,10 +87,17 @@ export default function InputForm() {
                 onChange={handleChange}
               />
             </div>
+            {error && (
+              <Alert className="m" color="failure">
+                {error}
+              </Alert>
+            )}
             <div className="flex justify-center">
               <Button
-                className="w-80 bg-gradient-to-r from-emerald-500 to to-black"
                 type="submit"
+                gradientDuoTone="tealToLime"
+                size="xl"
+                outline
               >
                 {loading ? (
                   <>
@@ -92,14 +110,6 @@ export default function InputForm() {
               </Button>
             </div>
           </form>
-          <div className="flex gap-2 text-sm mt-5">
-            <span>Generated Regex: {results.regex}</span>
-          </div>
-          {/* {errorMessage && (
-            <Alert className="mt-5" color="failure">
-              {errorMessage}
-            </Alert>
-          )} */}
         </div>
       </div>
     </div>
