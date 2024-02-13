@@ -20,7 +20,7 @@ export default function FooterCom() {
             Generator
           </div>
           <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6">
-            <div>
+            <div className="ml-auto">
               <Footer.Title title="Follow me" />
               <Footer.LinkGroup col>
                 <Footer.Link
@@ -30,14 +30,24 @@ export default function FooterCom() {
                 >
                   GitHub
                 </Footer.Link>
-                <Footer.Link href="#">LinkedIn</Footer.Link>
+                <Footer.Link
+                  href="https://www.linkedin.com/in/tony-ferriera/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn
+                </Footer.Link>
               </Footer.LinkGroup>
             </div>
-            <div>
+            <div className="ml-auto">
               <Footer.Title title="Legal" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Privacy Policy (place holder)</Footer.Link>
-                <Footer.Link href="#">Terms &amp; Conditions (place holder)</Footer.Link>
+                <Footer.Link href="#">
+                  Privacy Policy (place holder)
+                </Footer.Link>
+                <Footer.Link href="#">
+                  Terms &amp; Conditions (place holder)
+                </Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
@@ -50,7 +60,10 @@ export default function FooterCom() {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href="https://www.linkedin.com/in/tony-ferriera/" icon={BsLinkedin} />
+            <Footer.Icon
+              href="https://www.linkedin.com/in/tony-ferriera/"
+              icon={BsLinkedin}
+            />
             <Footer.Icon href="https://github.com/Tony-Ton3" icon={BsGithub} />
           </div>
         </div>
