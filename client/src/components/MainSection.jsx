@@ -9,7 +9,6 @@ export default function MainSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState({ regex: "", transformedText: "" });
-  // const [prompted, setPrompted] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: String(e.target.value.trim()) });
@@ -31,17 +30,11 @@ export default function MainSection() {
 
     try {
 
-      // if(!prompted){ //prompt the model only once on first generation
-      //   const initial = await initialPrompt();
-      //   setPrompted(true);
-      //   console.log(initial);
-      // }
-      
       const regex = await generateRegexFromPrompt(formData.prompt);
       const transformedText = await applyRegexToInputText(regex, formData.input);
 
-      console.log("REGEX: " + regex);
-      console.log("OUTPUT: " + transformedText);
+      // console.log("REGEX: " + regex);
+      // console.log("TRANSFORMED OUTPUT: " + transformedText);
 
       setResults({ regex, transformedText });
     } catch (error) {
@@ -76,8 +69,8 @@ export default function MainSection() {
           >
             Simplify your regex creation process with AI.
           </motion.div>
-          <div className="flex gap-2 text-sm mt-5">
-            <span>Generated Regex: {results.regex}</span>
+            <div className="flex gap-2 text-lg mt-5 text-blue-800">
+            <span>Generated REGEX:    {results.regex}</span>
           </div>
         </div>
 
