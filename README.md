@@ -8,9 +8,13 @@ $ npm install
 ```
 Create API key to communicate with Gemini API
 
+
 Create a .env file within the client directory and add the API key inside the .env file, formatting follows:
+
 [Generate API KEY](https://ai.google.dev/)
+
 Add the generated key like this: API_KEY="<KEY>" within .env file
+
 
 Run the project
 ```
